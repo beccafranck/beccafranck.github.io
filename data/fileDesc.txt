@@ -1,0 +1,7 @@
+files	inoculation	description
+./data/SlHa1.txt	SlHa	coinfection
+./data/SlHa2.txt	SlHa	coinfection
+./data/SlHa3.txt	SlHa	coinfection
+./data/Ctr1.txt	Ctr	Control
+./data/Ctr2.txt	Ctr	Control
+./data/Ctr3.txt	Ctr	Control
