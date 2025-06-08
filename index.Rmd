@@ -34,9 +34,10 @@ library(DESeq2)
 
 set working directory
 ```{r}
-setwd("C:/Users/becca/OneDrive/Dokument/GitHub/beccafranck.github.io")
+#setwd("Z:/RNA_seq_DEA")
 
 ```
+
 
 Here we read the data and change row names
 ```{r}
@@ -169,6 +170,9 @@ plotPCA(rld, intgroup="sampletype")
 ```
 
 
+The PCA plot shows the first two principal components after variance stabilizing transformation. The plot indicates the varaiance explained by each component. In this case, the PC1 explains 40% of the variance and PC2 explains 21%). On the plot we can see that one of the control and test sample cluster right next to each other, indicating similarity between those. 
+
+
 save the picture
 ```{r}
 pdf("./results/PlotPCA_dds.pdf")
@@ -194,6 +198,9 @@ rld_cor <- cor(rld_mat)
 head(rld_cor)
 
 ```
+
+
+Here we can see the relatedness of the different samples to each other, which can be visualized more clearly using a heatmap.
 
 
 head meta data for later use
@@ -237,6 +244,9 @@ pheatmap(rld_cor, annotation = meta, color = heat.colors,  border_color=NA, font
         fontsize_row = 10, height=20, cellwidth = 40, cellheight = 40, annotation_colors = thing_color)
 
 ```
+
+
+The heatmap shows the Euclidean distances between the samples after variance stabilizing transformation. The higher value on the heatmap scale (red on the first one, dark pink on the saved ones) indicates closer relation between the samples. SIH1 and SIH3 seem to be the closest related samples to each other out of all the samples. The others are not as closely related but there is relatedness seen between Ctr 1 and 2, as well as some relation between Ctr3 and SlH2, but not as close. SlH3 and Ctr1 have closer relation than Ctr3 and SlH2.  
 
 
 # Differential expression analysis (DEA) using EdgeR
@@ -487,6 +497,9 @@ dev.off()
 ```
 
 
+The MDS plot shows distances corresponding to the logFC between each of the samples.  The leading LogFC is the base 2 logarithm of fold change and is the average of the largest logFC between each pair of samples. The plot indicates that SlHa3 and Ctr2 are the closest related two samples as they are closest together on the plot. SlHa1 is also pretty closely related to SlHa3.
+
+
 ## Estimating the common dispersion, trended dispersion, tagwwise dispersion
 Dispersion means biological coeffient of variation (BCV) squared.E.g. if genes expression typically differs from replicate to replicate by 20% its BCV is 0.2, and its dispersion is 0.04. Estimating the common dispersion
 ```{r}
@@ -517,7 +530,7 @@ plotBCV(Infection)
 ```
 
 
-dispersion is the coefficient of biological variation (BCV). The common BCV is on the high side, considering that this is a designed experiment using genetically identical plants. The trended dispersion shows a decreasing trend with expression level. At low logCPM, the dispersions are very large indeed.
+dispersion is the coefficient of biological variation (BCV). The common BCV is on the high side, considering that this is a designed experiment using genetically identical plants. The trended dispersion shows a decreasing trend with expression level. At low logCPM, the dispersions are very large.
 
 
 ## Fit DGEList and design matrix to genewise GLM
@@ -637,6 +650,6 @@ abline(h=c(-1,1),col="dodgerblue")
        
 ```
 
-And done
+The plots show the difference in gene expression when coinfected compared to control. So here, the upregulated genes are shown in red while the downregulated genes are shown in blue. The genes that remain grey in the middle are unchanged.
 
-
+Done.
